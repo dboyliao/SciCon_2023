@@ -1,0 +1,57 @@
+workspace
+.vs-build
+
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+#OS stuff
+.DS_Store
+mbed-os
+sd-driver
+
+#Project generated test files
+python/test_scripts/testData
+python/.venv
+
+#Vim stuff
+*.swp
+
+#Others
+dev
+.vscode
+
+build
+*.dSYM
+main.cpp
+a.out
+*.orig

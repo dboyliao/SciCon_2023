@@ -2,6 +2,8 @@
 #ifndef __SUPERPOINT_INTERFACE_H
 #define __SUPERPOINT_INTERFACE_H
 #include "uTensor.h"
+#include "my_ops/Sum.hpp"
+#include "my_ops/Rsqrt.hpp"
 
 using namespace uTensor;
 

@@ -2,39 +2,36 @@
 #ifndef __SUPERPOINT_INTERFACE_H
 #define __SUPERPOINT_INTERFACE_H
 #include "uTensor.h"
-#include "my_ops/Sum.hpp"
-#include "my_ops/Rsqrt.hpp"
 
 using namespace uTensor;
 
-class Superpoint : public ModelInterface<1, 1> {
+class Superpoint : public ModelInterface<1, 1> 
+{
  public:
   enum input_names : uint8_t { input_0 };
   enum output_names : uint8_t { output_0 };
   Superpoint();
-
  protected:
   virtual void compute();
-
  private:
   // Operators
-  ReferenceOperators::MulOperator<float> op_MulOperator_000;
+  ReferenceOperators::Conv2dOperator<float> op_Conv2dOperator_000;
 
   ReferenceOperators::SumOperator<float> op_SumOperator_001;
 
-  ReferenceOperators::ReLUOperator<float> op_ReLUOperator_002;
+  ReferenceOperators::Conv2dOperator<float> op_Conv2dOperator_002;
 
-  ReferenceOperators::RsqrtOperator<float> op_RsqrtOperator_003;
+  ReferenceOperators::MaxPoolOperator<float> op_MaxPoolOperator_003;
 
-  ReferenceOperators::Conv2dOperator<float> op_Conv2dOperator_004;
+  ReferenceOperators::MulOperator<float> op_MulOperator_004;
 
-  ReferenceOperators::Conv2dOperator<float> op_Conv2dOperator_005;
+  ReferenceOperators::ReLUOperator<float> op_ReLUOperator_005;
 
-  ReferenceOperators::MaxPoolOperator<float> op_MaxPoolOperator_006;
+  ReferenceOperators::RsqrtOperator<float> op_RsqrtOperator_006;
 
   // memory allocators
-  localCircularArenaAllocator<256, uint16_t> ram_allocator;
+  localCircularArenaAllocator<6242700216, uint32_t> ram_allocator;
   localCircularArenaAllocator<3072, uint16_t> metadata_allocator;
 };
 
-#endif  // __SUPERPOINT_INTERFACE_H
+#endif // __SUPERPOINT_INTERFACE_H

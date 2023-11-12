@@ -7,6 +7,7 @@
 namespace py = pybind11;
 
 void talk(void) {
+  Superpoint superpoint;
   std::cout << "Hello plugin with pybind11!" << std::endl;
   return;
 }

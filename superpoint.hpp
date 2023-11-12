@@ -5,14 +5,15 @@
 
 using namespace uTensor;
 
-class Superpoint : public ModelInterface<1, 1> 
-{
+class Superpoint : public ModelInterface<1, 1> {
  public:
   enum input_names : uint8_t { input_0 };
   enum output_names : uint8_t { output_0 };
   Superpoint();
+
  protected:
   virtual void compute();
+
  private:
   // Operators
   ReferenceOperators::Conv2dOperator<float> op_Conv2dOperator_000;
@@ -30,8 +31,8 @@ class Superpoint : public ModelInterface<1, 1>
   ReferenceOperators::RsqrtOperator<float> op_RsqrtOperator_006;
 
   // memory allocators
-  localCircularArenaAllocator<6242700216, uint32_t> ram_allocator;
+  localCircularArenaAllocator<100216, uint32_t> ram_allocator;
   localCircularArenaAllocator<3072, uint16_t> metadata_allocator;
 };
 
-#endif // __SUPERPOINT_INTERFACE_H
+#endif  // __SUPERPOINT_INTERFACE_H

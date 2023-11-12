@@ -1,6 +1,5 @@
 #include <iostream>
 
-#include "params_superpoint.hpp"
 #include "superpoint.hpp"
 #include "uTensor.h"
 

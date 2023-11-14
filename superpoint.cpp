@@ -5,13 +5,13 @@
 
 
 Superpoint::Superpoint () :
-op_Conv2dOperator_000({ 1, 1, 1, 1 }, VALID)
-, op_SumOperator_001()
-, op_Conv2dOperator_002({ 1, 1, 1, 1 }, SAME)
-, op_MaxPoolOperator_003({ 2, 2 }, { 1, 2, 2, 1 }, VALID)
-, op_MulOperator_004()
-, op_ReLUOperator_005()
-, op_RsqrtOperator_006()
+op_ReLUOperator_000()
+, op_Conv2dOperator_001({ 1, 1, 1, 1 }, VALID)
+, op_RsqrtOperator_002()
+, op_MulOperator_003()
+, op_MaxPoolOperator_004({ 2, 2 }, { 1, 2, 2, 1 }, VALID)
+, op_Conv2dOperator_005({ 1, 1, 1, 1 }, SAME)
+, op_SumOperator_006()
 {
   // Context::get_default_context()->set_ram_data_allocator(&ram_allocator);
   // Context::get_default_context()->set_metadata_allocator(&metadata_allocator);
@@ -30,10 +30,10 @@ void Superpoint::compute()
   Tensor t_conv2dBiasAddReadVariableOpresource0 = new RomTensor({ 64 }, flt, data_conv2d_BiasAdd_ReadVariableOp_resource_0);
 
 
-  Tensor t_re_luRelu__conv2dBiasAdd__conv2d_3Conv2D__conv2dConv2D__conv2dBiasAddReadVariableOpresource0 = new RamTensor({ 1, 4032, 3024, 64 }, flt);
+  Tensor t_re_luRelu__conv2dBiasAdd__conv2d_3Conv2D__conv2dConv2D__conv2dBiasAddReadVariableOpresource0 = new RamTensor({ 1, 200, 150, 64 }, flt);
 
 
-  op_Conv2dOperator_002
+  op_Conv2dOperator_005
     .set_inputs({
         { ReferenceOperators::Conv2dOperator<float>::in, inputs[input_0].tensor() },
         { ReferenceOperators::Conv2dOperator<float>::filter, t_conv2dConv2D0 },
@@ -47,10 +47,10 @@ void Superpoint::compute()
 
   t_conv2dBiasAddReadVariableOpresource0.free();
 
-  Tensor t_0_CONV_2DReLU0 = new RamTensor({ 1, 4032, 3024, 64 }, flt);
+  Tensor t_0_CONV_2DReLU0 = new RamTensor({ 1, 200, 150, 64 }, flt);
 
 
-  op_ReLUOperator_005
+  op_ReLUOperator_000
     .set_inputs({
         { ReferenceOperators::ReLUOperator<float>::in, t_re_luRelu__conv2dBiasAdd__conv2d_3Conv2D__conv2dConv2D__conv2dBiasAddReadVariableOpresource0 },
     })
@@ -67,10 +67,10 @@ void Superpoint::compute()
   Tensor t_conv2d_1BiasAddReadVariableOpresource0 = new RomTensor({ 64 }, flt, data_conv2d_1_BiasAdd_ReadVariableOp_resource_0);
 
 
-  Tensor t_re_luRelu_1__conv2d_1BiasAdd__conv2d_3Conv2D__conv2d_1Conv2D__conv2d_1BiasAddReadVariableOpresource0 = new RamTensor({ 1, 4032, 3024, 64 }, flt);
+  Tensor t_re_luRelu_1__conv2d_1BiasAdd__conv2d_3Conv2D__conv2d_1Conv2D__conv2d_1BiasAddReadVariableOpresource0 = new RamTensor({ 1, 200, 150, 64 }, flt);
 
 
-  op_Conv2dOperator_002
+  op_Conv2dOperator_005
     .set_inputs({
         { ReferenceOperators::Conv2dOperator<float>::in, t_0_CONV_2DReLU0 },
         { ReferenceOperators::Conv2dOperator<float>::filter, t_conv2d_1Conv2D0 },
@@ -82,14 +82,14 @@ void Superpoint::compute()
 
   t_0_CONV_2DReLU0.free();
 
-  t_conv2d_1Conv2D0.free();
-
   t_conv2d_1BiasAddReadVariableOpresource0.free();
 
-  Tensor t_1_CONV_2DReLU0 = new RamTensor({ 1, 4032, 3024, 64 }, flt);
+  t_conv2d_1Conv2D0.free();
+
+  Tensor t_1_CONV_2DReLU0 = new RamTensor({ 1, 200, 150, 64 }, flt);
 
 
-  op_ReLUOperator_005
+  op_ReLUOperator_000
     .set_inputs({
         { ReferenceOperators::ReLUOperator<float>::in, t_re_luRelu_1__conv2d_1BiasAdd__conv2d_3Conv2D__conv2d_1Conv2D__conv2d_1BiasAddReadVariableOpresource0 },
     })
@@ -100,10 +100,10 @@ void Superpoint::compute()
 
   t_re_luRelu_1__conv2d_1BiasAdd__conv2d_3Conv2D__conv2d_1Conv2D__conv2d_1BiasAddReadVariableOpresource0.free();
 
-  Tensor t_max_pooling2dMaxPool0 = new RamTensor({ 1, 2016, 1512, 64 }, flt);
+  Tensor t_max_pooling2dMaxPool0 = new RamTensor({ 1, 100, 75, 64 }, flt);
 
 
-  op_MaxPoolOperator_003
+  op_MaxPoolOperator_004
     .set_inputs({
         { ReferenceOperators::MaxPoolOperator<float>::in, t_1_CONV_2DReLU0 },
     })
@@ -120,10 +120,10 @@ void Superpoint::compute()
   Tensor t_conv2d_2BiasAddReadVariableOpresource0 = new RomTensor({ 64 }, flt, data_conv2d_2_BiasAdd_ReadVariableOp_resource_0);
 
 
-  Tensor t_re_luRelu_2__conv2d_2BiasAdd__conv2d_3Conv2D__conv2d_2Conv2D__conv2d_2BiasAddReadVariableOpresource0 = new RamTensor({ 1, 2016, 1512, 64 }, flt);
+  Tensor t_re_luRelu_2__conv2d_2BiasAdd__conv2d_3Conv2D__conv2d_2Conv2D__conv2d_2BiasAddReadVariableOpresource0 = new RamTensor({ 1, 100, 75, 64 }, flt);
 
 
-  op_Conv2dOperator_002
+  op_Conv2dOperator_005
     .set_inputs({
         { ReferenceOperators::Conv2dOperator<float>::in, t_max_pooling2dMaxPool0 },
         { ReferenceOperators::Conv2dOperator<float>::filter, t_conv2d_2Conv2D0 },
@@ -133,16 +133,16 @@ void Superpoint::compute()
     })
     .eval();
 
+  t_conv2d_2BiasAddReadVariableOpresource0.free();
+
   t_max_pooling2dMaxPool0.free();
 
   t_conv2d_2Conv2D0.free();
 
-  t_conv2d_2BiasAddReadVariableOpresource0.free();
-
-  Tensor t_3_CONV_2DReLU0 = new RamTensor({ 1, 2016, 1512, 64 }, flt);
+  Tensor t_3_CONV_2DReLU0 = new RamTensor({ 1, 100, 75, 64 }, flt);
 
 
-  op_ReLUOperator_005
+  op_ReLUOperator_000
     .set_inputs({
         { ReferenceOperators::ReLUOperator<float>::in, t_re_luRelu_2__conv2d_2BiasAdd__conv2d_3Conv2D__conv2d_2Conv2D__conv2d_2BiasAddReadVariableOpresource0 },
     })
@@ -159,10 +159,10 @@ void Superpoint::compute()
   Tensor t_conv2d_3BiasAddReadVariableOpresource0 = new RomTensor({ 64 }, flt, data_conv2d_3_BiasAdd_ReadVariableOp_resource_0);
 
 
-  Tensor t_re_luRelu_3__conv2d_3BiasAdd__conv2d_3Conv2D__conv2d_3BiasAddReadVariableOpresource0 = new RamTensor({ 1, 2016, 1512, 64 }, flt);
+  Tensor t_re_luRelu_3__conv2d_3BiasAdd__conv2d_3Conv2D__conv2d_3BiasAddReadVariableOpresource0 = new RamTensor({ 1, 100, 75, 64 }, flt);
 
 
-  op_Conv2dOperator_002
+  op_Conv2dOperator_005
     .set_inputs({
         { ReferenceOperators::Conv2dOperator<float>::in, t_3_CONV_2DReLU0 },
         { ReferenceOperators::Conv2dOperator<float>::filter, t_conv2d_3Conv2D0 },
@@ -172,16 +172,16 @@ void Superpoint::compute()
     })
     .eval();
 
+  t_3_CONV_2DReLU0.free();
+
   t_conv2d_3BiasAddReadVariableOpresource0.free();
 
   t_conv2d_3Conv2D0.free();
 
-  t_3_CONV_2DReLU0.free();
-
-  Tensor t_4_CONV_2DReLU0 = new RamTensor({ 1, 2016, 1512, 64 }, flt);
+  Tensor t_4_CONV_2DReLU0 = new RamTensor({ 1, 100, 75, 64 }, flt);
 
 
-  op_ReLUOperator_005
+  op_ReLUOperator_000
     .set_inputs({
         { ReferenceOperators::ReLUOperator<float>::in, t_re_luRelu_3__conv2d_3BiasAdd__conv2d_3Conv2D__conv2d_3BiasAddReadVariableOpresource0 },
     })
@@ -192,10 +192,10 @@ void Superpoint::compute()
 
   t_re_luRelu_3__conv2d_3BiasAdd__conv2d_3Conv2D__conv2d_3BiasAddReadVariableOpresource0.free();
 
-  Tensor t_max_pooling2dMaxPool_10 = new RamTensor({ 1, 1008, 756, 64 }, flt);
+  Tensor t_max_pooling2dMaxPool_10 = new RamTensor({ 1, 50, 37, 64 }, flt);
 
 
-  op_MaxPoolOperator_003
+  op_MaxPoolOperator_004
     .set_inputs({
         { ReferenceOperators::MaxPoolOperator<float>::in, t_4_CONV_2DReLU0 },
     })
@@ -212,10 +212,10 @@ void Superpoint::compute()
   Tensor t_conv2d_4BiasAddReadVariableOpresource0 = new RomTensor({ 128 }, flt, data_conv2d_4_BiasAdd_ReadVariableOp_resource_0);
 
 
-  Tensor t_re_luRelu_4__conv2d_4BiasAdd__conv2d_7Conv2D__conv2d_4Conv2D__conv2d_4BiasAddReadVariableOpresource0 = new RamTensor({ 1, 1008, 756, 128 }, flt);
+  Tensor t_re_luRelu_4__conv2d_4BiasAdd__conv2d_7Conv2D__conv2d_4Conv2D__conv2d_4BiasAddReadVariableOpresource0 = new RamTensor({ 1, 50, 37, 128 }, flt);
 
 
-  op_Conv2dOperator_002
+  op_Conv2dOperator_005
     .set_inputs({
         { ReferenceOperators::Conv2dOperator<float>::in, t_max_pooling2dMaxPool_10 },
         { ReferenceOperators::Conv2dOperator<float>::filter, t_conv2d_4Conv2D0 },
@@ -225,16 +225,16 @@ void Superpoint::compute()
     })
     .eval();
 
-  t_conv2d_4Conv2D0.free();
-
   t_max_pooling2dMaxPool_10.free();
+
+  t_conv2d_4Conv2D0.free();
 
   t_conv2d_4BiasAddReadVariableOpresource0.free();
 
-  Tensor t_6_CONV_2DReLU0 = new RamTensor({ 1, 1008, 756, 128 }, flt);
+  Tensor t_6_CONV_2DReLU0 = new RamTensor({ 1, 50, 37, 128 }, flt);
 
 
-  op_ReLUOperator_005
+  op_ReLUOperator_000
     .set_inputs({
         { ReferenceOperators::ReLUOperator<float>::in, t_re_luRelu_4__conv2d_4BiasAdd__conv2d_7Conv2D__conv2d_4Conv2D__conv2d_4BiasAddReadVariableOpresource0 },
     })
@@ -251,10 +251,10 @@ void Superpoint::compute()
   Tensor t_conv2d_5BiasAddReadVariableOpresource0 = new RomTensor({ 128 }, flt, data_conv2d_5_BiasAdd_ReadVariableOp_resource_0);
 
 
-  Tensor t_re_luRelu_5__conv2d_5BiasAdd__conv2d_7Conv2D__conv2d_5Conv2D__conv2d_5BiasAddReadVariableOpresource0 = new RamTensor({ 1, 1008, 756, 128 }, flt);
+  Tensor t_re_luRelu_5__conv2d_5BiasAdd__conv2d_7Conv2D__conv2d_5Conv2D__conv2d_5BiasAddReadVariableOpresource0 = new RamTensor({ 1, 50, 37, 128 }, flt);
 
 
-  op_Conv2dOperator_002
+  op_Conv2dOperator_005
     .set_inputs({
         { ReferenceOperators::Conv2dOperator<float>::in, t_6_CONV_2DReLU0 },
         { ReferenceOperators::Conv2dOperator<float>::filter, t_conv2d_5Conv2D0 },
@@ -264,16 +264,16 @@ void Superpoint::compute()
     })
     .eval();
 
+  t_conv2d_5Conv2D0.free();
+
   t_6_CONV_2DReLU0.free();
 
   t_conv2d_5BiasAddReadVariableOpresource0.free();
 
-  t_conv2d_5Conv2D0.free();
-
-  Tensor t_7_CONV_2DReLU0 = new RamTensor({ 1, 1008, 756, 128 }, flt);
+  Tensor t_7_CONV_2DReLU0 = new RamTensor({ 1, 50, 37, 128 }, flt);
 
 
-  op_ReLUOperator_005
+  op_ReLUOperator_000
     .set_inputs({
         { ReferenceOperators::ReLUOperator<float>::in, t_re_luRelu_5__conv2d_5BiasAdd__conv2d_7Conv2D__conv2d_5Conv2D__conv2d_5BiasAddReadVariableOpresource0 },
     })
@@ -284,10 +284,10 @@ void Superpoint::compute()
 
   t_re_luRelu_5__conv2d_5BiasAdd__conv2d_7Conv2D__conv2d_5Conv2D__conv2d_5BiasAddReadVariableOpresource0.free();
 
-  Tensor t_max_pooling2dMaxPool_20 = new RamTensor({ 1, 504, 378, 128 }, flt);
+  Tensor t_max_pooling2dMaxPool_20 = new RamTensor({ 1, 25, 18, 128 }, flt);
 
 
-  op_MaxPoolOperator_003
+  op_MaxPoolOperator_004
     .set_inputs({
         { ReferenceOperators::MaxPoolOperator<float>::in, t_7_CONV_2DReLU0 },
     })
@@ -304,10 +304,10 @@ void Superpoint::compute()
   Tensor t_conv2d_6BiasAddReadVariableOpresource0 = new RomTensor({ 128 }, flt, data_conv2d_6_BiasAdd_ReadVariableOp_resource_0);
 
 
-  Tensor t_re_luRelu_6__conv2d_6BiasAdd__conv2d_7Conv2D__conv2d_6Conv2D__conv2d_6BiasAddReadVariableOpresource0 = new RamTensor({ 1, 504, 378, 128 }, flt);
+  Tensor t_re_luRelu_6__conv2d_6BiasAdd__conv2d_7Conv2D__conv2d_6Conv2D__conv2d_6BiasAddReadVariableOpresource0 = new RamTensor({ 1, 25, 18, 128 }, flt);
 
 
-  op_Conv2dOperator_002
+  op_Conv2dOperator_005
     .set_inputs({
         { ReferenceOperators::Conv2dOperator<float>::in, t_max_pooling2dMaxPool_20 },
         { ReferenceOperators::Conv2dOperator<float>::filter, t_conv2d_6Conv2D0 },
@@ -319,14 +319,14 @@ void Superpoint::compute()
 
   t_conv2d_6BiasAddReadVariableOpresource0.free();
 
-  t_max_pooling2dMaxPool_20.free();
-
   t_conv2d_6Conv2D0.free();
 
-  Tensor t_9_CONV_2DReLU0 = new RamTensor({ 1, 504, 378, 128 }, flt);
+  t_max_pooling2dMaxPool_20.free();
+
+  Tensor t_9_CONV_2DReLU0 = new RamTensor({ 1, 25, 18, 128 }, flt);
 
 
-  op_ReLUOperator_005
+  op_ReLUOperator_000
     .set_inputs({
         { ReferenceOperators::ReLUOperator<float>::in, t_re_luRelu_6__conv2d_6BiasAdd__conv2d_7Conv2D__conv2d_6Conv2D__conv2d_6BiasAddReadVariableOpresource0 },
     })
@@ -343,10 +343,10 @@ void Superpoint::compute()
   Tensor t_conv2d_7BiasAddReadVariableOpresource0 = new RomTensor({ 128 }, flt, data_conv2d_7_BiasAdd_ReadVariableOp_resource_0);
 
 
-  Tensor t_re_luRelu_7__conv2d_7BiasAdd__conv2d_7Conv2D__conv2d_7BiasAddReadVariableOpresource0 = new RamTensor({ 1, 504, 378, 128 }, flt);
+  Tensor t_re_luRelu_7__conv2d_7BiasAdd__conv2d_7Conv2D__conv2d_7BiasAddReadVariableOpresource0 = new RamTensor({ 1, 25, 18, 128 }, flt);
 
 
-  op_Conv2dOperator_002
+  op_Conv2dOperator_005
     .set_inputs({
         { ReferenceOperators::Conv2dOperator<float>::in, t_9_CONV_2DReLU0 },
         { ReferenceOperators::Conv2dOperator<float>::filter, t_conv2d_7Conv2D0 },
@@ -356,16 +356,16 @@ void Superpoint::compute()
     })
     .eval();
 
-  t_9_CONV_2DReLU0.free();
+  t_conv2d_7Conv2D0.free();
 
   t_conv2d_7BiasAddReadVariableOpresource0.free();
 
-  t_conv2d_7Conv2D0.free();
+  t_9_CONV_2DReLU0.free();
 
-  Tensor t_10_CONV_2DReLU0 = new RamTensor({ 1, 504, 378, 128 }, flt);
+  Tensor t_10_CONV_2DReLU0 = new RamTensor({ 1, 25, 18, 128 }, flt);
 
 
-  op_ReLUOperator_005
+  op_ReLUOperator_000
     .set_inputs({
         { ReferenceOperators::ReLUOperator<float>::in, t_re_luRelu_7__conv2d_7BiasAdd__conv2d_7Conv2D__conv2d_7BiasAddReadVariableOpresource0 },
     })
@@ -382,10 +382,10 @@ void Superpoint::compute()
   Tensor t_conv2d_10BiasAddReadVariableOpresource0 = new RomTensor({ 256 }, flt, data_conv2d_10_BiasAdd_ReadVariableOp_resource_0);
 
 
-  Tensor t_re_luRelu_8__conv2d_10BiasAdd__conv2d_11Conv2D__conv2d_10Conv2D__conv2d_10BiasAddReadVariableOpresource0 = new RamTensor({ 1, 504, 378, 256 }, flt);
+  Tensor t_re_luRelu_8__conv2d_10BiasAdd__conv2d_11Conv2D__conv2d_10Conv2D__conv2d_10BiasAddReadVariableOpresource0 = new RamTensor({ 1, 25, 18, 256 }, flt);
 
 
-  op_Conv2dOperator_002
+  op_Conv2dOperator_005
     .set_inputs({
         { ReferenceOperators::Conv2dOperator<float>::in, t_10_CONV_2DReLU0 },
         { ReferenceOperators::Conv2dOperator<float>::filter, t_conv2d_10Conv2D0 },
@@ -395,16 +395,16 @@ void Superpoint::compute()
     })
     .eval();
 
-  t_conv2d_10Conv2D0.free();
-
   t_10_CONV_2DReLU0.free();
+
+  t_conv2d_10Conv2D0.free();
 
   t_conv2d_10BiasAddReadVariableOpresource0.free();
 
-  Tensor t_11_CONV_2DReLU0 = new RamTensor({ 1, 504, 378, 256 }, flt);
+  Tensor t_11_CONV_2DReLU0 = new RamTensor({ 1, 25, 18, 256 }, flt);
 
 
-  op_ReLUOperator_005
+  op_ReLUOperator_000
     .set_inputs({
         { ReferenceOperators::ReLUOperator<float>::in, t_re_luRelu_8__conv2d_10BiasAdd__conv2d_11Conv2D__conv2d_10Conv2D__conv2d_10BiasAddReadVariableOpresource0 },
     })
@@ -421,10 +421,10 @@ void Superpoint::compute()
   Tensor t_conv2d_11BiasAdd__conv2d_11Conv2D__conv2d_11BiasAddReadVariableOpresource0 = new RomTensor({ 256 }, flt, data_conv2d_11_BiasAdd__conv2d_11_Conv2D__conv2d_11_BiasAdd_ReadVariableOp_resource_0);
 
 
-  Tensor t_conv2d_11BiasAdd__conv2d_11Conv2D__conv2d_11BiasAddReadVariableOpresource10 = new RamTensor({ 1, 504, 378, 256 }, flt);
+  Tensor t_conv2d_11BiasAdd__conv2d_11Conv2D__conv2d_11BiasAddReadVariableOpresource10 = new RamTensor({ 1, 25, 18, 256 }, flt);
 
 
-  op_Conv2dOperator_000
+  op_Conv2dOperator_001
     .set_inputs({
         { ReferenceOperators::Conv2dOperator<float>::in, t_11_CONV_2DReLU0 },
         { ReferenceOperators::Conv2dOperator<float>::filter, t_conv2d_11Conv2D0 },
@@ -434,16 +434,16 @@ void Superpoint::compute()
     })
     .eval();
 
-  t_conv2d_11Conv2D0.free();
-
   t_conv2d_11BiasAdd__conv2d_11Conv2D__conv2d_11BiasAddReadVariableOpresource0.free();
+
+  t_conv2d_11Conv2D0.free();
 
   t_11_CONV_2DReLU0.free();
 
-  Tensor t_normalizenormmul0 = new RamTensor({ 1, 504, 378, 256 }, flt);
+  Tensor t_normalizenormmul0 = new RamTensor({ 1, 25, 18, 256 }, flt);
 
 
-  op_MulOperator_004
+  op_MulOperator_003
     .set_inputs({
         { ReferenceOperators::MulOperator<float>::a, t_conv2d_11BiasAdd__conv2d_11Conv2D__conv2d_11BiasAddReadVariableOpresource10 },
         { ReferenceOperators::MulOperator<float>::b, t_conv2d_11BiasAdd__conv2d_11Conv2D__conv2d_11BiasAddReadVariableOpresource10 },
@@ -456,10 +456,10 @@ void Superpoint::compute()
   Tensor t_normalizenormSumreduction_indices0 = new RomTensor({ 1 }, i32, data_normalize_norm_Sum_reduction_indices_0);
 
 
-  Tensor t_normalizenormSum0 = new RamTensor({ 1, 504, 378, 1 }, flt);
+  Tensor t_normalizenormSum0 = new RamTensor({ 1, 25, 18, 1 }, flt);
 
 
-  op_SumOperator_001
+  op_SumOperator_006
     .set_inputs({
         { ReferenceOperators::SumOperator<float>::input, t_normalizenormmul0 },
         { ReferenceOperators::SumOperator<float>::axis, t_normalizenormSumreduction_indices0 },
@@ -469,14 +469,14 @@ void Superpoint::compute()
     })
     .eval();
 
-  t_normalizenormSumreduction_indices0.free();
-
   t_normalizenormmul0.free();
 
-  Tensor t_normalizetruediv__normalizenormSqrt0 = new RamTensor({ 1, 504, 378, 1 }, flt);
+  t_normalizenormSumreduction_indices0.free();
+
+  Tensor t_normalizetruediv__normalizenormSqrt0 = new RamTensor({ 1, 25, 18, 1 }, flt);
 
 
-  op_RsqrtOperator_006
+  op_RsqrtOperator_002
     .set_inputs({
         { ReferenceOperators::RsqrtOperator<float>::input, t_normalizenormSum0 },
     })
@@ -487,7 +487,7 @@ void Superpoint::compute()
 
   t_normalizenormSum0.free();
 
-  op_MulOperator_004
+  op_MulOperator_003
     .set_inputs({
         { ReferenceOperators::MulOperator<float>::a, t_conv2d_11BiasAdd__conv2d_11Conv2D__conv2d_11BiasAddReadVariableOpresource10 },
         { ReferenceOperators::MulOperator<float>::b, t_normalizetruediv__normalizenormSqrt0 },

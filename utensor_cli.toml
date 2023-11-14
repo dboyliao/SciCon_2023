@@ -4,7 +4,7 @@
 # we use string 'None' to represent python None value
 # you should convert the string to None if you try to write extension for utensor_cgen
 [utensor.backend.tensor_alloc_planner]
-max_pool_size = 8388608
+max_pool_size = 6291456
 include_inputs = false
 include_outputs = true
 out_fname = "mem_allocation_plan.png"

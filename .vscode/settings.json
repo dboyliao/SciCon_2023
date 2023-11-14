@@ -1,8 +1,0 @@
-{
-    "files.associations": {
-        "*.vue": "vue",
-        ".bash_functions": "shellscript",
-        "Makefile-docker": "makefile",
-        "cstddef": "cpp"
-    }
-}

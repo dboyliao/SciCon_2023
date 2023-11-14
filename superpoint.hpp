@@ -15,22 +15,22 @@ class Superpoint : public ModelInterface<1, 1>
   virtual void compute();
  private:
   // Operators
-  ReferenceOperators::ReLUOperator<float> op_ReLUOperator_000;
+  ReferenceOperators::MaxPoolOperator<float> op_MaxPoolOperator_000;
 
-  ReferenceOperators::Conv2dOperator<float> op_Conv2dOperator_001;
+  ReferenceOperators::SumOperator<float> op_SumOperator_001;
 
   ReferenceOperators::RsqrtOperator<float> op_RsqrtOperator_002;
 
-  ReferenceOperators::MulOperator<float> op_MulOperator_003;
+  ReferenceOperators::Conv2dOperator<float> op_Conv2dOperator_003;
 
-  ReferenceOperators::MaxPoolOperator<float> op_MaxPoolOperator_004;
+  ReferenceOperators::MulOperator<float> op_MulOperator_004;
 
-  ReferenceOperators::Conv2dOperator<float> op_Conv2dOperator_005;
+  ReferenceOperators::ReLUOperator<float> op_ReLUOperator_005;
 
-  ReferenceOperators::SumOperator<float> op_SumOperator_006;
+  ReferenceOperators::Conv2dOperator<float> op_Conv2dOperator_006;
 
   // memory allocators
-  localCircularArenaAllocator<15363000, uint32_t> ram_allocator;
+  localCircularArenaAllocator<5532600, uint32_t> ram_allocator;
   localCircularArenaAllocator<3072, uint16_t> metadata_allocator;
 };
 

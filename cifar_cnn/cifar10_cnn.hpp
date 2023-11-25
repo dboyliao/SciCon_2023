@@ -5,21 +5,23 @@
 
 using namespace uTensor;
 
-class Cifar10Cnn : public ModelInterface<1, 1> 
-{
+class Cifar10Cnn : public ModelInterface<1, 1> {
  public:
   enum input_names : uint8_t { input_0 };
   enum output_names : uint8_t { output_0 };
   Cifar10Cnn();
+
  protected:
   virtual void compute();
+
  private:
   // Operators
   ReferenceOperators::Conv2dOperator<float> op_Conv2dOperator_000;
 
   ReferenceOperators::ReLUOperator<float> op_ReLUOperator_001;
 
-  ReferenceOperators::FullyConnectedOperator<float> op_FullyConnectedOperator_002;
+  ReferenceOperators::FullyConnectedOperator<float>
+      op_FullyConnectedOperator_002;
 
   ReferenceOperators::Conv2dOperator<float> op_Conv2dOperator_003;
 
@@ -32,8 +34,8 @@ class Cifar10Cnn : public ModelInterface<1, 1>
   ReferenceOperators::Conv2dOperator<float> op_Conv2dOperator_007;
 
   // memory allocators
-  localCircularArenaAllocator<218296, uint32_t> ram_allocator;
+  localCircularArenaAllocator<800296, uint32_t> ram_allocator;
   localCircularArenaAllocator<2560, uint16_t> metadata_allocator;
 };
 
-#endif // __CIFAR10_CNN_INTERFACE_H
+#endif  // __CIFAR10_CNN_INTERFACE_H

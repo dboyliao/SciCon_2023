@@ -6,7 +6,7 @@
 
 using namespace uTensor;
 static localCircularArenaAllocator<512> meta_alloc;
-static localCircularArenaAllocator<5000> ram_alloc;
+static localCircularArenaAllocator<9000, uint32_t> ram_alloc;
 
 int main(int argc, char const *argv[]) {
   if (argc < 2) {
@@ -22,7 +22,7 @@ int main(int argc, char const *argv[]) {
   Tensor logits = new RamTensor({1, 10}, flt);
   for (int r = 0; r < rows; ++r) {
     for (int c = 0; c < cols; ++c) {
-      t_img(1, r, c) = static_cast<float>(cv_img.at<uint8_t>(0, 0));
+      t_img(1, r, c) = static_cast<float>(cv_img.at<uint8_t>(r, c));
     }
   }
   Cifar10Cnn cifar10_cnn;

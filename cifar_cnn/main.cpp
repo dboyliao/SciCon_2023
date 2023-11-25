@@ -23,20 +23,26 @@ int main(int argc, char const *argv[]) {
   for (int r = 0; r < rows; ++r) {
     for (int c = 0; c < cols; ++c) {
       cv::Vec3b bgr_value = cv_img.at<cv::Vec3b>(r, c);
-      t_img(0, r, c, 0) = static_cast<float>(bgr_value(2)) / 255.0f;
+      t_img(0, r, c, 0) = static_cast<float>(bgr_value(0)) / 255.0f;
       t_img(0, r, c, 1) = static_cast<float>(bgr_value(1)) / 255.0f;
-      t_img(0, r, c, 2) = static_cast<float>(bgr_value(0)) / 255.0f;
+      t_img(0, r, c, 2) = static_cast<float>(bgr_value(2)) / 255.0f;
     }
   }
   Cifar10Cnn cifar10_cnn;
   cifar10_cnn.set_inputs({{Cifar10Cnn::input_0, t_img}})
       .set_outputs({{Cifar10Cnn::output_0, logits}})
       .eval();
+  int max_idx = 0;
+  float max_logit = static_cast<float>(logits(0, 0));
   for (int i = 0; i < 10; ++i) {
-    float val = static_cast<float>(logits(i));
-    std::cout << val << ", ";
+    float val = static_cast<float>(logits(0, i));
+    if (val >= max_logit) {
+      max_logit = val;
+      max_idx = i;
+    }
   }
-  std::cout << std::endl;
+  std::cout << "Predicted class is " << max_idx << " for " << argv[1]
+            << std::endl;
   Context::get_default_context()->set_metadata_allocator(&meta_alloc);
   Context::get_default_context()->set_ram_data_allocator(&ram_alloc);
   return 0;

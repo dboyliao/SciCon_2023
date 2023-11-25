@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
 
   cv::Mat cv_img = cv::imread(argv[1], cv::IMREAD_GRAYSCALE);
   uint16_t rows = cv_img.rows, cols = cv_img.cols;
-  Tensor t_img = new RamTensor({rows, cols, 1}, flt);
+  Tensor t_img = new RamTensor({1, rows, cols, 1}, flt);
   Tensor out_encode = new RamTensor({1, 15, 11, 256}, flt);
   for (int r = 0; r < rows; ++r) {
     for (int c = 0; c < cols; ++c) {

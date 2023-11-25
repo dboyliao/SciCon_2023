@@ -5,9 +5,8 @@ set(CMAKE_CXX_STANDARD 11)
 find_package(OpenCV REQUIRED)
 
 add_subdirectory(uTensor)
-add_executable(usuperpoint main.cpp superpoint.cpp)
-target_link_libraries(usuperpoint PRIVATE utensor PRIVATE ${OpenCV_LIBS})
-target_include_directories(usuperpoint PRIVATE ${OpenCV_INCLUDE_DIRS})
+add_subdirectory(uSuperPoint)
+add_subdirectory(cifar_cnn)
 option(PYTHON_BINDING "enable python binding" OFF)
 
 if(PYTHON_BINDING)

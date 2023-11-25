@@ -5,14 +5,14 @@
 
 
 Cifar10Cnn::Cifar10Cnn () :
-op_Conv2dOperator_000({ 1, 2, 2, 1 }, VALID)
-, op_ReLUOperator_001()
+op_AddOperator_000()
+, op_Conv2dOperator_001({ 1, 1, 1, 1 }, SAME)
 , op_FullyConnectedOperator_002(Fuseable::NoActivation<float>)
-, op_Conv2dOperator_003({ 1, 1, 1, 1 }, SAME)
-, op_AddOperator_004()
-, op_ReshapeOperator_005({ 1, 128 })
+, op_Conv2dOperator_003({ 1, 2, 2, 1 }, VALID)
+, op_ReshapeOperator_004({ 1, 128 })
+, op_Conv2dOperator_005({ 1, 1, 1, 1 }, VALID)
 , op_MaxPoolOperator_006({ 2, 2 }, { 1, 2, 2, 1 }, VALID)
-, op_Conv2dOperator_007({ 1, 1, 1, 1 }, VALID)
+, op_ReLUOperator_007()
 {
   // Context::get_default_context()->set_ram_data_allocator(&ram_allocator);
   // Context::get_default_context()->set_metadata_allocator(&metadata_allocator);
@@ -31,7 +31,7 @@ void Cifar10Cnn::compute()
   Tensor t_convfeature_map0 = new RamTensor({ 1, 31, 31, 16 }, flt);
 
 
-  op_Conv2dOperator_007
+  op_Conv2dOperator_005
     .set_inputs({
         { ReferenceOperators::Conv2dOperator<float>::in, inputs[input_0].tensor() },
         { ReferenceOperators::Conv2dOperator<float>::filter, t_convVariable0 },
@@ -43,13 +43,13 @@ void Cifar10Cnn::compute()
 
   t_convVariable0.free();
 
-  Tensor t_convbias0 = new RomTensor({ 16 }, flt, data_conv_bias_0);
+  Tensor t_convbias0 = new RomTensor({ 1, 31, 31, 16 }, flt, data_conv_bias_0);
 
 
   Tensor t_convlogits0 = new RamTensor({ 1, 31, 31, 16 }, flt);
 
 
-  op_AddOperator_004
+  op_AddOperator_000
     .set_inputs({
         { ReferenceOperators::AddOperator<float>::a, t_convfeature_map0 },
         { ReferenceOperators::AddOperator<float>::b, t_convbias0 },
@@ -59,9 +59,9 @@ void Cifar10Cnn::compute()
     })
     .eval();
 
-  t_convbias0.free();
-
   t_convfeature_map0.free();
+
+  t_convbias0.free();
 
   Tensor t_conv_1Variable0 = new RomTensor({ 3, 3, 16, 32 }, flt, data_conv_1_Variable_0);
 
@@ -69,7 +69,7 @@ void Cifar10Cnn::compute()
   Tensor t_conv_1feature_map0 = new RamTensor({ 1, 29, 29, 32 }, flt);
 
 
-  op_Conv2dOperator_007
+  op_Conv2dOperator_005
     .set_inputs({
         { ReferenceOperators::Conv2dOperator<float>::in, t_convlogits0 },
         { ReferenceOperators::Conv2dOperator<float>::filter, t_conv_1Variable0 },
@@ -79,17 +79,17 @@ void Cifar10Cnn::compute()
     })
     .eval();
 
-  t_conv_1Variable0.free();
-
   t_convlogits0.free();
 
-  Tensor t_conv_1bias0 = new RomTensor({ 32 }, flt, data_conv_1_bias_0);
+  t_conv_1Variable0.free();
+
+  Tensor t_conv_1bias0 = new RomTensor({ 1, 29, 29, 32 }, flt, data_conv_1_bias_0);
 
 
   Tensor t_conv_1logits0 = new RamTensor({ 1, 29, 29, 32 }, flt);
 
 
-  op_AddOperator_004
+  op_AddOperator_000
     .set_inputs({
         { ReferenceOperators::AddOperator<float>::a, t_conv_1feature_map0 },
         { ReferenceOperators::AddOperator<float>::b, t_conv_1bias0 },
@@ -99,14 +99,14 @@ void Cifar10Cnn::compute()
     })
     .eval();
 
-  t_conv_1feature_map0.free();
-
   t_conv_1bias0.free();
+
+  t_conv_1feature_map0.free();
 
   Tensor t_conv_1activation0 = new RamTensor({ 1, 29, 29, 32 }, flt);
 
 
-  op_ReLUOperator_001
+  op_ReLUOperator_007
     .set_inputs({
         { ReferenceOperators::ReLUOperator<float>::in, t_conv_1logits0 },
     })
@@ -137,7 +137,7 @@ void Cifar10Cnn::compute()
   Tensor t_conv_2feature_map0 = new RamTensor({ 1, 6, 6, 32 }, flt);
 
 
-  op_Conv2dOperator_000
+  op_Conv2dOperator_003
     .set_inputs({
         { ReferenceOperators::Conv2dOperator<float>::in, t_MaxPool0 },
         { ReferenceOperators::Conv2dOperator<float>::filter, t_conv_2Variable0 },
@@ -151,13 +151,13 @@ void Cifar10Cnn::compute()
 
   t_conv_2Variable0.free();
 
-  Tensor t_conv_2bias0 = new RomTensor({ 32 }, flt, data_conv_2_bias_0);
+  Tensor t_conv_2bias0 = new RomTensor({ 1, 6, 6, 32 }, flt, data_conv_2_bias_0);
 
 
   Tensor t_conv_2logits0 = new RamTensor({ 1, 6, 6, 32 }, flt);
 
 
-  op_AddOperator_004
+  op_AddOperator_000
     .set_inputs({
         { ReferenceOperators::AddOperator<float>::a, t_conv_2feature_map0 },
         { ReferenceOperators::AddOperator<float>::b, t_conv_2bias0 },
@@ -177,7 +177,7 @@ void Cifar10Cnn::compute()
   Tensor t_conv_3feature_map0 = new RamTensor({ 1, 2, 2, 32 }, flt);
 
 
-  op_Conv2dOperator_000
+  op_Conv2dOperator_003
     .set_inputs({
         { ReferenceOperators::Conv2dOperator<float>::in, t_conv_2logits0 },
         { ReferenceOperators::Conv2dOperator<float>::filter, t_conv_3Variable0 },
@@ -187,17 +187,17 @@ void Cifar10Cnn::compute()
     })
     .eval();
 
-  t_conv_3Variable0.free();
-
   t_conv_2logits0.free();
 
-  Tensor t_conv_3bias0 = new RomTensor({ 32 }, flt, data_conv_3_bias_0);
+  t_conv_3Variable0.free();
+
+  Tensor t_conv_3bias0 = new RomTensor({ 1, 2, 2, 32 }, flt, data_conv_3_bias_0);
 
 
   Tensor t_conv_3logits0 = new RamTensor({ 1, 2, 2, 32 }, flt);
 
 
-  op_AddOperator_004
+  op_AddOperator_000
     .set_inputs({
         { ReferenceOperators::AddOperator<float>::a, t_conv_3feature_map0 },
         { ReferenceOperators::AddOperator<float>::b, t_conv_3bias0 },
@@ -214,7 +214,7 @@ void Cifar10Cnn::compute()
   Tensor t_conv_3activation0 = new RamTensor({ 1, 2, 2, 32 }, flt);
 
 
-  op_ReLUOperator_001
+  op_ReLUOperator_007
     .set_inputs({
         { ReferenceOperators::ReLUOperator<float>::in, t_conv_3logits0 },
     })
@@ -245,7 +245,7 @@ void Cifar10Cnn::compute()
   Tensor t_conv_4feature_map0 = new RamTensor({ 1, 1, 1, 64 }, flt);
 
 
-  op_Conv2dOperator_007
+  op_Conv2dOperator_005
     .set_inputs({
         { ReferenceOperators::Conv2dOperator<float>::in, t_MaxPool_10 },
         { ReferenceOperators::Conv2dOperator<float>::filter, t_conv_4Variable0 },
@@ -259,13 +259,13 @@ void Cifar10Cnn::compute()
 
   t_MaxPool_10.free();
 
-  Tensor t_conv_4bias0 = new RomTensor({ 64 }, flt, data_conv_4_bias_0);
+  Tensor t_conv_4bias0 = new RomTensor({ 1, 1, 1, 64 }, flt, data_conv_4_bias_0);
 
 
   Tensor t_conv_4logits0 = new RamTensor({ 1, 1, 1, 64 }, flt);
 
 
-  op_AddOperator_004
+  op_AddOperator_000
     .set_inputs({
         { ReferenceOperators::AddOperator<float>::a, t_conv_4feature_map0 },
         { ReferenceOperators::AddOperator<float>::b, t_conv_4bias0 },
@@ -275,14 +275,14 @@ void Cifar10Cnn::compute()
     })
     .eval();
 
-  t_conv_4bias0.free();
-
   t_conv_4feature_map0.free();
+
+  t_conv_4bias0.free();
 
   Tensor t_conv_4activation0 = new RamTensor({ 1, 1, 1, 64 }, flt);
 
 
-  op_ReLUOperator_001
+  op_ReLUOperator_007
     .set_inputs({
         { ReferenceOperators::ReLUOperator<float>::in, t_conv_4logits0 },
     })
@@ -299,7 +299,7 @@ void Cifar10Cnn::compute()
   Tensor t_conv_5feature_map0 = new RamTensor({ 1, 1, 1, 128 }, flt);
 
 
-  op_Conv2dOperator_003
+  op_Conv2dOperator_001
     .set_inputs({
         { ReferenceOperators::Conv2dOperator<float>::in, t_conv_4activation0 },
         { ReferenceOperators::Conv2dOperator<float>::filter, t_conv_5Variable0 },
@@ -309,17 +309,17 @@ void Cifar10Cnn::compute()
     })
     .eval();
 
-  t_conv_5Variable0.free();
-
   t_conv_4activation0.free();
 
-  Tensor t_conv_5bias0 = new RomTensor({ 128 }, flt, data_conv_5_bias_0);
+  t_conv_5Variable0.free();
+
+  Tensor t_conv_5bias0 = new RomTensor({ 1, 1, 1, 128 }, flt, data_conv_5_bias_0);
 
 
   Tensor t_conv_5logits0 = new RamTensor({ 1, 1, 1, 128 }, flt);
 
 
-  op_AddOperator_004
+  op_AddOperator_000
     .set_inputs({
         { ReferenceOperators::AddOperator<float>::a, t_conv_5feature_map0 },
         { ReferenceOperators::AddOperator<float>::b, t_conv_5bias0 },
@@ -329,14 +329,14 @@ void Cifar10Cnn::compute()
     })
     .eval();
 
-  t_conv_5feature_map0.free();
-
   t_conv_5bias0.free();
+
+  t_conv_5feature_map0.free();
 
   Tensor t_conv_5activation0 = new RamTensor({ 1, 1, 1, 128 }, flt);
 
 
-  op_ReLUOperator_001
+  op_ReLUOperator_007
     .set_inputs({
         { ReferenceOperators::ReLUOperator<float>::in, t_conv_5logits0 },
     })
@@ -350,7 +350,7 @@ void Cifar10Cnn::compute()
   Tensor t_Reshape0 = new RamTensor({ 1, 128 }, flt);
 
 
-  op_ReshapeOperator_005
+  op_ReshapeOperator_004
     .set_inputs({
         { ReferenceOperators::ReshapeOperator<float>::input, t_conv_5activation0 },
     })
@@ -384,7 +384,7 @@ void Cifar10Cnn::compute()
   Tensor t_fully_connectactivation0 = new RamTensor({ 1, 128 }, flt);
 
 
-  op_ReLUOperator_001
+  op_ReLUOperator_007
     .set_inputs({
         { ReferenceOperators::ReLUOperator<float>::in, t_fully_connectlogits0 },
     })
@@ -418,7 +418,7 @@ void Cifar10Cnn::compute()
   Tensor t_fully_connect_1activation0 = new RamTensor({ 1, 64 }, flt);
 
 
-  op_ReLUOperator_001
+  op_ReLUOperator_007
     .set_inputs({
         { ReferenceOperators::ReLUOperator<float>::in, t_fully_connect_1logits0 },
     })
@@ -442,8 +442,8 @@ void Cifar10Cnn::compute()
     })
     .eval();
 
-  t_fully_connect_2weight0.free();
-
   t_fully_connect_1activation0.free();
+
+  t_fully_connect_2weight0.free();
   // end of rendering local snippets
 }

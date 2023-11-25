@@ -16,26 +16,26 @@ class Cifar10Cnn : public ModelInterface<1, 1> {
 
  private:
   // Operators
-  ReferenceOperators::Conv2dOperator<float> op_Conv2dOperator_000;
+  ReferenceOperators::AddOperator<float> op_AddOperator_000;
 
-  ReferenceOperators::ReLUOperator<float> op_ReLUOperator_001;
+  ReferenceOperators::Conv2dOperator<float> op_Conv2dOperator_001;
 
   ReferenceOperators::FullyConnectedOperator<float>
       op_FullyConnectedOperator_002;
 
   ReferenceOperators::Conv2dOperator<float> op_Conv2dOperator_003;
 
-  ReferenceOperators::AddOperator<float> op_AddOperator_004;
+  ReferenceOperators::ReshapeOperator<float> op_ReshapeOperator_004;
 
-  ReferenceOperators::ReshapeOperator<float> op_ReshapeOperator_005;
+  ReferenceOperators::Conv2dOperator<float> op_Conv2dOperator_005;
 
   ReferenceOperators::MaxPoolOperator<float> op_MaxPoolOperator_006;
 
-  ReferenceOperators::Conv2dOperator<float> op_Conv2dOperator_007;
+  ReferenceOperators::ReLUOperator<float> op_ReLUOperator_007;
 
   // memory allocators
-  localCircularArenaAllocator<800296, uint32_t> ram_allocator;
-  localCircularArenaAllocator<2560, uint16_t> metadata_allocator;
+  localCircularArenaAllocator<2182960, uint32_t> ram_allocator;
+  localCircularArenaAllocator<2944, uint16_t> metadata_allocator;
 };
 
 #endif  // __CIFAR10_CNN_INTERFACE_H

@@ -6,7 +6,7 @@
 
 using namespace uTensor;
 static localCircularArenaAllocator<512> meta_alloc;
-static localCircularArenaAllocator<9000, uint32_t> ram_alloc;
+static localCircularArenaAllocator<50000, uint32_t> ram_alloc;
 
 int main(int argc, char const *argv[]) {
   if (argc < 2) {
@@ -16,13 +16,16 @@ int main(int argc, char const *argv[]) {
   Context::get_default_context()->set_metadata_allocator(&meta_alloc);
   Context::get_default_context()->set_ram_data_allocator(&ram_alloc);
 
-  cv::Mat cv_img = cv::imread(argv[1], cv::IMREAD_GRAYSCALE);
+  cv::Mat cv_img = cv::imread(argv[1], cv::IMREAD_COLOR);
   uint16_t rows = cv_img.rows, cols = cv_img.cols;
-  Tensor t_img = new RamTensor({1, rows, cols, 1}, flt);
+  Tensor t_img = new RamTensor({1, rows, cols, 3}, flt);
   Tensor logits = new RamTensor({1, 10}, flt);
   for (int r = 0; r < rows; ++r) {
     for (int c = 0; c < cols; ++c) {
-      t_img(1, r, c) = static_cast<float>(cv_img.at<uint8_t>(r, c));
+      cv::Vec3b bgr_value = cv_img.at<cv::Vec3b>(r, c);
+      t_img(0, r, c, 0) = static_cast<float>(bgr_value(2)) / 255.0f;
+      t_img(0, r, c, 1) = static_cast<float>(bgr_value(1)) / 255.0f;
+      t_img(0, r, c, 2) = static_cast<float>(bgr_value(0)) / 255.0f;
     }
   }
   Cifar10Cnn cifar10_cnn;

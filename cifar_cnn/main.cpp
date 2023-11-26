@@ -19,7 +19,11 @@ int main(int argc, char const *argv[]) {
   cv::Mat cv_img = cv::imread(argv[1], cv::IMREAD_COLOR);
   uint16_t rows = cv_img.rows, cols = cv_img.cols;
   Tensor t_img = new RamTensor({1, rows, cols, 3}, flt);
+
   Tensor logits = new RamTensor({1, 10}, flt);
+  // float *data_ptr = (float *)static_cast<RamTensor
+  // *>(*logits)->get_address(); float arr[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9,
+  // 10}; std::memcpy(data_ptr, &arr, sizeof(float) * 10);
   for (int r = 0; r < rows; ++r) {
     for (int c = 0; c < cols; ++c) {
       cv::Vec3b bgr_value = cv_img.at<cv::Vec3b>(r, c);
